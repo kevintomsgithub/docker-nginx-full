@@ -57,7 +57,7 @@ sudo docker build \
 echo -e "${BLUE}❯ ${CYAN}Building ${YELLOW}certbot-node ${CYAN}...${RESET}"
 sudo docker build \
 	--build-arg CERTBOT_IMAGE=$CERTBOT_IMAGE \
-	-t "$CERTBOT_NODE_IMAGE" \
+	-t "kustom-local-nginx-full:certbot-node" \
 	-f docker/Dockerfile.certbot-node \
 	.
 
