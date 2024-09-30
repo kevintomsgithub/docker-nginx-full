@@ -33,10 +33,11 @@ docker buildx build \
 	--platform "$PLATFORMS" \
 	--progress plain \
 	--pull \
-	--build-arg OPENRESTY_VERSION \
-	--build-arg CROWDSEC_OPENRESTY_BOUNCER_VERSION \
-	--build-arg LUA_VERSION \
-	--build-arg LUAROCKS_VERSION \
+	--load \
+	--build-arg OPENRESTY_VERSION=$OPENRESTY_VERSION \
+	--build-arg CROWDSEC_OPENRESTY_BOUNCER_VERSION=$CROWDSEC_OPENRESTY_BOUNCER_VERSION \
+	--build-arg LUA_VERSION=$LUA_VERSION \
+	--build-arg LUAROCKS_VERSION=$LUAROCKS_VERSION \
 	-t "$BASE_IMAGE" \
 	-f docker/Dockerfile \
 	.
@@ -55,7 +56,9 @@ echo -e "${BLUE}❯ ${CYAN}Building ${YELLOW}certbot ${CYAN}...${RESET}"
 docker buildx build \
 	--platform "$PLATFORMS" \
 	--progress plain \
-	--build-arg BASE_IMAGE \
+	--load \
+	--no-cache \
+	--build-arg BASE_IMAGE=$BASE_IMAGE \
 	-t "$CERTBOT_IMAGE" \
 	-f docker/Dockerfile.certbot \
 	.
@@ -75,7 +78,8 @@ docker buildx build \
 	--platform "$PLATFORMS" \
 	--progress plain \
 	--load \
-	--build-arg CERTBOT_IMAGE \
+	--no-cache \
+	--build-arg CERTBOT_IMAGE=$CERTBOT_IMAGE \
 	-t "$CERTBOT_NODE_IMAGE" \
 	-f docker/Dockerfile.certbot-node \
 	.
