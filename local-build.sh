@@ -23,41 +23,41 @@ export ACMESH_GOLANG_IMAGE="${DOCKER_IMAGE}:acmesh-golang"
 # Builds
 
 echo -e "${BLUE}❯ ${CYAN}Building ${YELLOW}latest ${CYAN}...${RESET}"
-docker build \
+sudo docker build \
 	--pull \
-	--build-arg OPENRESTY_VERSION \
-	--build-arg CROWDSEC_OPENRESTY_BOUNCER_VERSION \
-	--build-arg LUA_VERSION \
-	--build-arg LUAROCKS_VERSION \
+	--build-arg OPENRESTY_VERSION=$OPENRESTY_VERSION \
+	--build-arg CROWDSEC_OPENRESTY_BOUNCER_VERSION=$CROWDSEC_OPENRESTY_BOUNCER_VERSION \
+	--build-arg LUA_VERSION=$LUA_VERSION \
+	--build-arg LUAROCKS_VERSION=$LUAROCKS_VERSION \
 	-t "$BASE_IMAGE" \
 	-f docker/Dockerfile \
 	.
 
-echo -e "${BLUE}❯ ${CYAN}Building ${YELLOW}acmesh ${CYAN}...${RESET}"
-docker build \
-	--build-arg BASE_IMAGE \
-	-t "$ACMESH_IMAGE" \
-	-f docker/Dockerfile.acmesh \
-	.
+# echo -e "${BLUE}❯ ${CYAN}Building ${YELLOW}acmesh ${CYAN}...${RESET}"
+# docker build \
+# 	--build-arg BASE_IMAGE \
+# 	-t "$ACMESH_IMAGE" \
+# 	-f docker/Dockerfile.acmesh \
+#	.
 
 echo -e "${BLUE}❯ ${CYAN}Building ${YELLOW}certbot ${CYAN}...${RESET}"
-docker build \
-	--build-arg BASE_IMAGE \
+sudo docker build \
+	--build-arg BASE_IMAGE=$BASE_IMAGE \
 	-t "$CERTBOT_IMAGE" \
 	-f docker/Dockerfile.certbot \
 	.
 
-echo -e "${BLUE}❯ ${CYAN}Building ${YELLOW}acmesh-golang ${CYAN}...${RESET}"
-docker build \
-	--build-arg ACMESH_IMAGE \
-	-t "$ACMESH_GOLANG_IMAGE" \
-	-f docker/Dockerfile.acmesh-golang \
-	.
+# echo -e "${BLUE}❯ ${CYAN}Building ${YELLOW}acmesh-golang ${CYAN}...${RESET}"
+# docker build \
+# 	--build-arg ACMESH_IMAGE \
+# 	-t "$ACMESH_GOLANG_IMAGE" \
+# 	-f docker/Dockerfile.acmesh-golang \
+# 	.
 
 echo -e "${BLUE}❯ ${CYAN}Building ${YELLOW}certbot-node ${CYAN}...${RESET}"
-docker build \
-	--build-arg CERTBOT_IMAGE \
-	-t "$CERTBOT_NODE_IMAGE" \
+sudo docker build \
+	--build-arg CERTBOT_IMAGE=$CERTBOT_IMAGE \
+	-t "kustom-local-nginx-full:certbot-node" \
 	-f docker/Dockerfile.certbot-node \
 	.
 

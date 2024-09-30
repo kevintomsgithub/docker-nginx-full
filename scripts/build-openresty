@@ -14,6 +14,8 @@ tar -xzf openresty-${OPENRESTY_VERSION}.tar.gz
 mv /tmp/openresty-${OPENRESTY_VERSION} /tmp/openresty
 git clone https://github.com/leev/ngx_http_geoip2_module.git
 mv /tmp/ngx_http_geoip2_module /tmp/openresty/ngx_http_geoip2_module
+git clone https://github.com/vozlt/nginx-module-vts.git
+mv /tmp/nginx-module-vts /tmp/openresty/nginx-module-vts
 cd /tmp/openresty
 
 ./configure \
@@ -55,6 +57,7 @@ cd /tmp/openresty
 	--with-stream_realip_module \
 	--with-stream_ssl_module \
 	--with-stream_ssl_preread_module \
+	--add-module=/tmp/openresty/nginx-module-vts \
 	--add-dynamic-module=/tmp/openresty/ngx_http_geoip2_module
 
 make -j2
